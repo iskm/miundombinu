@@ -1,3 +1,4 @@
+## Lightsail instance
 import {
   to = aws_lightsail_instance.ubuntu_22_virginia
   id = "Ubuntu-22-virginia"
@@ -11,6 +12,22 @@ resource "aws_lightsail_instance" "ubuntu_22_virginia" {
   key_pair_name     = "aws_ubuntu_virginia"
 
 }
+
+## Droplet instance
+import {
+  to = digitalocean_droplet.meus_droplet
+  id = 111318458
+}
+
+resource "digitalocean_droplet" "meus_droplet" {
+  name = "ubuntu-s-1vcpu-1gb-nyc3-01"
+  size = "s-1vcpu-1gb"
+  image = 37208325
+
+}
+
+## /end Droplet instance
+
 
 import {
   to = proxmox_virtual_environment_vm.rhel0
@@ -76,7 +93,7 @@ resource "proxmox_virtual_environment_vm" "docker0" {
 
 }
 
-## 
+##   k3s cluster: node0 through node5
 
 import {
   to = proxmox_virtual_environment_vm.node0
