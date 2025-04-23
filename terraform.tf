@@ -9,11 +9,20 @@ terraform {
       source = "hashicorp/aws"
       version = "5.95.0"
     }
+
+    digitalocean = {
+      source = "digitalocean/digitalocean"
+      version = "2.51.0"
+    }
   }
 }
 
 provider "aws" {
   # the AWS creds are exported into the environment
+}
+
+provider "digitalocean" {
+ # the doc creds are exported into the environment
 }
 
 provider "proxmox" {
