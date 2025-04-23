@@ -4,7 +4,16 @@ terraform {
       source = "bpg/proxmox"
       version = "0.76.1"
     }
+
+    aws = {
+      source = "hashicorp/aws"
+      version = "5.95.0"
+    }
   }
+}
+
+provider "aws" {
+  # the AWS creds are exported into the environment
 }
 
 provider "proxmox" {

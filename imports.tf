@@ -1,8 +1,22 @@
 import {
-  to = proxmox_virtual_environment_vm.rhel0
-  id = "pve/110" 
+  to = aws_lightsail_instance.ubuntu_22_virginia
+  id = "Ubuntu-22-virginia"
 }
 
-resource "proxmox_virtual_environment_vm" "rhel0" {
-  node_name = "pve"
+resource "aws_lightsail_instance" "ubuntu_22_virginia" {
+  name = "Ubuntu-22-virginia"  
+  availability_zone = "us-east-1a"
+  bundle_id = "small_3_0"
+  blueprint_id = "ubuntu_22_04"
+  key_pair_name = "aws_ubuntu_virginia"
+
 }
+
+/*import {*/
+  /*to = proxmox_virtual_environment_vm.rhel0*/
+  /*id = "pve/110" */
+/*}*/
+
+/*resource "proxmox_virtual_environment_vm" "rhel0" {*/
+  /*node_name = "pve"*/
+/*}*/
