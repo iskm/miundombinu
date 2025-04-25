@@ -13,6 +13,31 @@ resource "aws_lightsail_instance" "ubuntu_22_virginia" {
 
 }
 
+import {
+  to = aws_lightsail_disk.hifadhi_kuu
+  id = "hifadhi_kuu"
+}
+
+
+resource  "aws_lightsail_disk" "hifadhi_kuu" {
+  name = "hifadhi_kuu"
+  size_in_gb = 50
+  availability_zone = "us-east-1a"
+}
+
+import {
+  to = aws_lightsail_disk_attachment.main
+  id = "hifadhi_kuu,Ubuntu-22-virginia"
+}
+
+resource "aws_lightsail_disk_attachment" "main" {
+  disk_name = aws_lightsail_disk.hifadhi_kuu.name
+  instance_name = aws_lightsail_instance.ubuntu_22_virginia.name
+  disk_path = "/dev/xvdf"
+}
+
+## end lightsail instance
+
 ## Droplet instance
 import {
   to = digitalocean_droplet.meus_droplet
@@ -24,6 +49,15 @@ resource "digitalocean_droplet" "meus_droplet" {
   size = "s-1vcpu-1gb"
   image = 37208325
 
+}
+
+import {
+  to = digitalocean_domain.main
+  id = "ibrahimmkusa.com"
+}
+
+resource "digitalocean_domain" "main" {
+  name = "ibrahimmkusa.com"
 }
 
 ## /end Droplet instance
