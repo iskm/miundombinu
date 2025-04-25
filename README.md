@@ -19,4 +19,12 @@ import feature
 
 ## FAQs
 
+## ROADMAP TO FULLY PROGRAMMABLE INFRA
+1. add namecheap/namecheap provider
+2. kickoff configuration after provisioning(awx callbacks?)
+3. in conjuction with 3 separate the data from compute
+4. Migrate doc droplet into azure/gcps/aws(pending decision)
+5. Integrate terraform into CI/CD pipeline
+6. Central secrets management via CI/CD(Github Actions) pipeline
+7. Central state management via syncthing
 
