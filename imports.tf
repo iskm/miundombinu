@@ -36,6 +36,33 @@ resource "aws_lightsail_disk_attachment" "main" {
   disk_path = "/dev/xvdf"
 }
 
+resource "aws_lightsail_static_ip" "main" {
+  name = "main_static_ip"
+}
+
+resource "aws_lightsail_static_ip_attachment" "main" {
+  static_ip_name = aws_lightsail_static_ip.main.name
+  instance_name =  aws_lightsail_instance.ubuntu_22_virginia.name
+}
+
+resource "aws_lightsail_domain" "secondary" {
+  domain_name = "kwerezigua.org"
+}
+
+resource "aws_lightsail_domain_entry" "record" {
+  domain_name = aws_lightsail_domain.secondary.domain_name
+  name = "www"
+  type = "A"
+  target = aws_lightsail_static_ip.main.ip_address
+}
+
+resource "aws_lightsail_domain_entry" "record2" {
+  domain_name = aws_lightsail_domain.secondary.domain_name
+  name = "*"
+  type = "A"
+  target = aws_lightsail_static_ip.main.ip_address
+}
+
 ## end lightsail instance
 
 ## Droplet instance

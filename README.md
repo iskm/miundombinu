@@ -15,6 +15,8 @@ import feature
 2. Add as many information (including optional) of the VMs you are importing to
    reduce chance of recreation. This is true for aws lightsail
 
+3. DNS record changes take a while to reflect. Make sure to account for it
+
 ## FAQs
 
 
