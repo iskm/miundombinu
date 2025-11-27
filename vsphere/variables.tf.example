@@ -1,0 +1,17 @@
+variable "vcsa_user" {
+  description = "Username for vcenter"
+  type        = string
+  default     = "XXXXXXXXX@XXXXXX.XXX"
+}
+
+variable "vcsa_password" {
+  description = "Password for vcenter"
+  type        = string
+  default     = "XXXXXXXXXXXXXXXXXXXXXXXXX"
+}
+
+variable "vcsa_address" {
+  description = "url of vcenter server"
+  type        = string
+  default     = "XXXXXXXXXXXXXXXXXXXXXXXXX"
+}
