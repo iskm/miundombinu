@@ -2,17 +2,7 @@ terraform {
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = "0.76.1"
-    }
-
-    aws = {
-      source  = "hashicorp/aws"
-      version = "5.95.0"
-    }
-
-    digitalocean = {
-      source  = "digitalocean/digitalocean"
-      version = "2.51.0"
+      version = "0.78.1"
     }
   }
 }
@@ -22,7 +12,7 @@ provider "aws" {
 }
 
 provider "digitalocean" {
-  # the doc creds are exported into the environment
+  # the doc creds are exported from the environment DIGITALOCEAN_TOKEN="XXXX"
 }
 
 provider "proxmox" {
