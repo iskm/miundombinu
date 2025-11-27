@@ -35,6 +35,12 @@ data "vsphere_virtual_machine" "template" {
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
+resource "vsphere_folder" "docker" {
+  path = "docker"
+  type ="vm"
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
 resource "vsphere_virtual_machine" "docker" {
   name             = "docker0"
   resource_pool_id = data.vsphere_host.primary.resource_pool_id
