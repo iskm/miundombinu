@@ -145,49 +145,8 @@ resource "vsphere_virtual_machine" "rhel" {
 
 }
 
-## cluster variables for vanilla_k8s
-locals {
-  k8s_nodes = {
-    node0 = {
-      ipv4   = "192.168.0.101"
-      cpu    = 4
-      memory = 8092
-    }
-    node1 = {
-      ipv4   = "192.168.0.103"
-      cpu    = 6
-      memory = 24476
-
-    }
-    node2 = {
-      ipv4   = "192.168.0.106"
-      cpu    = 6
-      memory = 24476
-
-    }
-    /*    node3 = {*/
-    /*ipv4   = "192.168.0.107"*/
-    /*cpu    = 4*/
-    /*memory = 16384*/
-
-    /*}*/
-    /*node4 = {*/
-    /*ipv4   = "192.168.0.107"*/
-    /*cpu    = 4*/
-    /*memory = 16384*/
-
-    /*}*/
-    /*node5 = {*/
-    /*ipv4   = "192.168.0.108"*/
-    /*cpu    = 4*/
-    /*memory = 16384*/
-
-    /*    }*/
-  }
-}
-
 resource "vsphere_virtual_machine" "vanila_k8s" {
-  for_each = local.k8s_nodes
+  for_each = var.k8s_nodes
 
   name             = each.key
   resource_pool_id = data.vsphere_host.primary.resource_pool_id
