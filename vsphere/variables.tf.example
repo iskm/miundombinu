@@ -8,6 +8,8 @@ variable "vcsa_password" {
   description = "Password for vcenter"
   type        = string
   default     = "XXXXXXXXXXXXXXXXXXXXXXXXX"
+  sensitive   = true
+  ephemeral   = true
 }
 
 variable "vcsa_address" {
