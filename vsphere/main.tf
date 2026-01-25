@@ -41,6 +41,11 @@ data "vsphere_virtual_machine" "rhel_template" {
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
+data "vsphere_virtual_machine" "windows_template" {
+  name          = "windows-template"
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
 # folder creation
 resource "vsphere_folder" "docker" {
   path          = "docker"
@@ -65,6 +70,13 @@ resource "vsphere_folder" "k3s" {
   type          = "vm"
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
+
+resource "vsphere_folder" "windows_core" {
+  path          = "windows-core"
+  type          = "vm"
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
 
 # vm creation
 resource "vsphere_virtual_machine" "docker" {
@@ -229,6 +241,51 @@ resource "vsphere_virtual_machine" "k3s" {
       linux_options {
         host_name = each.key
         domain    = "homelab.test"
+      }
+
+      network_interface {
+        ipv4_address = each.value.ipv4
+        ipv4_netmask = 24
+      }
+
+      ipv4_gateway    = "192.168.0.1"
+      dns_server_list = ["192.168.0.202"]
+      dns_suffix_list = ["homelab.test"]
+    }
+  }
+}
+
+resource "vsphere_virtual_machine" "windows_core" {
+  for_each = var.windows_core
+
+  name             = each.key
+  resource_pool_id = data.vsphere_host.primary.resource_pool_id
+  datastore_id     = data.vsphere_datastore.datastore.id
+  num_cpus         = each.value.cpu
+  memory           = each.value.memory
+  guest_id         = data.vsphere_virtual_machine.windows_template.guest_id
+  scsi_type        = data.vsphere_virtual_machine.windows_template.scsi_type
+  folder           = vsphere_folder.windows_core.path
+  firmware         = data.vsphere_virtual_machine.windows_template.firmware
+  depends_on       = [vsphere_folder.windows_core]
+
+  network_interface {
+    network_id   = data.vsphere_network.network.id
+    adapter_type = data.vsphere_virtual_machine.windows_template.network_interface_types[0]
+  }
+
+  disk {
+    label            = "disk0"
+    size             = data.vsphere_virtual_machine.windows_template.disks.0.size
+    thin_provisioned = true
+  }
+
+  clone {
+    template_uuid = data.vsphere_virtual_machine.windows_template.id
+
+    customize {
+      windows_options {
+        computer_name = each.key
       }
 
       network_interface {

@@ -39,3 +39,24 @@ k3s_nodes = {
 
   }
 }
+
+## variables for windows_core
+windows_core = {
+  windows0 = {
+    ipv4   = "192.168.0.15"
+    cpu    = 4
+    memory = 8092
+  }
+  windows1 = {
+    ipv4   = "192.168.0.16"
+    cpu    = 2
+    memory = 4096
+
+  }
+  windows2 = {
+    ipv4   = "192.168.0.17"
+    cpu    = 4
+    memory = 16384
+
+  }
+}
